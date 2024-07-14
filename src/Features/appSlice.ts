@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, PrepareAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Product {
   title: string;
@@ -53,10 +53,12 @@ const appSlice = createSlice({
       );
       if (itemInCart && itemInCart.num < 10) {
         state.cart = state.cart.map((item) =>
-          item.title == itemInCart.title ? { ...item, num: item.num + 1 } : item
+          item.title === itemInCart.title
+            ? { ...item, num: item.num + 1 }
+            : item
         );
       } else if (!itemInCart) {
-        state.cart = [...state.cart, { ...action.payload, num: 1 }];
+        state.cart.push({ ...action.payload, num: 1 });
       }
     },
     removeFromCart(state, action: PayloadAction<{ title: string }>) {
@@ -65,10 +67,7 @@ const appSlice = createSlice({
       );
     },
     updateItemInCart: {
-      prepare(
-        product: Product,
-        newNum: number
-      ): PrepareAction<{ product: Product; newNum: number }> {
+      prepare(product: Product, newNum: number) {
         return { payload: { product, newNum } };
       },
       reducer(

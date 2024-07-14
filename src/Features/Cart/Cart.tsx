@@ -1,18 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, updateItemInCart } from "../appSlice";
-
-export default function Cart() {
-  const { cart } = useSelector((store) => store.app);
-  if (cart.length == 0) return <h1>Cart Is Empty!</h1>;
-  return (
-    <div>
-      {cart.map((item) => (
-        <ItemCart key={item.title} item={item} />
-      ))}
-    </div>
-  );
-}
+import { RootState } from "../../store";
 
 interface CartType {
   title: string;
@@ -21,7 +10,25 @@ interface CartType {
   num: number;
 }
 
-function ItemCart({ item }: { item: CartType }) {
+const Cart: React.FC = () => {
+  const cart = useSelector((store: RootState) => store.app.cart) as CartType[];
+
+  if (cart.length === 0) return <h1>Cart Is Empty!</h1>;
+
+  return (
+    <div>
+      {cart.map((item) => (
+        <ItemCart key={item.title} item={item} />
+      ))}
+    </div>
+  );
+};
+
+interface ItemCartProps {
+  item: CartType;
+}
+
+const ItemCart: React.FC<ItemCartProps> = ({ item }) => {
   const [numitems, setNumItems] = useState<number>(item.num);
   const dispatch = useDispatch();
 
@@ -36,19 +43,16 @@ function ItemCart({ item }: { item: CartType }) {
           dispatch(updateItemInCart(item, +e.target.value));
         }}
       >
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
+        {Array.from({ length: 10 }, (_, i) => (
+          <option key={i + 1} value={`${i + 1}`}>
+            {i + 1}
+          </option>
+        ))}
       </select>
-      <p>${(item.price * item.num).toFixed(2)}</p>
+      <p>${(item.price * numitems).toFixed(2)}</p>
       <button onClick={() => dispatch(removeFromCart(item))}>X</button>
     </div>
   );
-}
+};
+
+export default Cart;

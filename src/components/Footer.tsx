@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../store"; // Adjust the import path as necessary
+import { RootState } from "../store";
 
 function Footer() {
   const { cart } = useSelector((store: RootState) => store.app);
