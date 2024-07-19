@@ -33,8 +33,8 @@ const ItemCart: React.FC<ItemCartProps> = ({ item }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="cart-item">
-      <img src={item.img} alt="product-image" />
+    <div className="mx-auto mt-20 flex w-[85%] items-center justify-between text-sm sm:text-base">
+      <img src={item.img} alt="product-image" className="w-16 md:w-28" />
       <p>${item.price}</p>
       <select
         value={numitems}
@@ -42,6 +42,7 @@ const ItemCart: React.FC<ItemCartProps> = ({ item }) => {
           setNumItems(+e.target.value);
           dispatch(updateItemInCart(item, +e.target.value));
         }}
+        className=""
       >
         {Array.from({ length: 10 }, (_, i) => (
           <option key={i + 1} value={`${i + 1}`}>
@@ -50,7 +51,9 @@ const ItemCart: React.FC<ItemCartProps> = ({ item }) => {
         ))}
       </select>
       <p>${(item.price * numitems).toFixed(2)}</p>
-      <button onClick={() => dispatch(removeFromCart(item))}>X</button>
+      <button className="btn" onClick={() => dispatch(removeFromCart(item))}>
+        X
+      </button>
     </div>
   );
 };

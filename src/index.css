@@ -1,39 +1,9 @@
-.container {
-  width: 90%;
-  margin: auto;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid black;
-  padding: 10px;
-}
-
-.products {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 30px;
-}
-.cart-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 30px;
-  margin: 40px 10px;
-}
-img {
-  width: 60%;
-}
-.cart-item img {
-  width: 100px;
-}
-
-button {
-  cursor: pointer;
-}
-
-.footer {
-  margin-top: 30px;
+@layer components {
+  .btn {
+    @apply cursor-pointer rounded-full bg-green-400 px-4 py-2 hover:bg-green-500;
+  }
 }

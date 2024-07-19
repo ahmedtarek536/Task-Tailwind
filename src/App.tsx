@@ -10,9 +10,8 @@ const App: React.FC = () => {
   const { pageIsProducts } = useSelector((state: RootState) => state.app);
 
   return (
-    <div className="container">
+    <div className="grid h-screen grid-rows-[auto_1fr_auto]">
       <Header />
-      {/* <Products /> */}
       {pageIsProducts ? <Products /> : <Cart />}
       <Footer />
     </div>

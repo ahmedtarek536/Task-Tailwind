@@ -49,13 +49,13 @@ const appSlice = createSlice({
     },
     addToCart(state, action: PayloadAction<Product>) {
       const itemInCart = state.cart.find(
-        (item) => item.title === action.payload.title
+        (item) => item.title === action.payload.title,
       );
       if (itemInCart && itemInCart.num < 10) {
         state.cart = state.cart.map((item) =>
           item.title === itemInCart.title
             ? { ...item, num: item.num + 1 }
-            : item
+            : item,
         );
       } else if (!itemInCart) {
         state.cart.push({ ...action.payload, num: 1 });
@@ -63,7 +63,7 @@ const appSlice = createSlice({
     },
     removeFromCart(state, action: PayloadAction<{ title: string }>) {
       state.cart = state.cart.filter(
-        (item) => item.title !== action.payload.title
+        (item) => item.title !== action.payload.title,
       );
     },
     updateItemInCart: {
@@ -72,12 +72,12 @@ const appSlice = createSlice({
       },
       reducer(
         state,
-        action: PayloadAction<{ product: Product; newNum: number }>
+        action: PayloadAction<{ product: Product; newNum: number }>,
       ) {
         state.cart = state.cart.map((item) =>
           item.title === action.payload.product.title
             ? { ...item, num: action.payload.newNum }
-            : item
+            : item,
         );
       },
     },

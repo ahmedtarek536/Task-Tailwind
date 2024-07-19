@@ -14,11 +14,11 @@ const Header: React.FC = () => {
 
   const totalItems = cart.reduce(
     (prev: number, current: CartItem) => prev + current.num,
-    0
+    0,
   );
   const totalPrices = cart.reduce(
     (prev: number, current: CartItem) => prev + current.num * current.price,
-    0
+    0,
   );
 
   const handleUpdatePage = () => {
@@ -26,12 +26,16 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="header">
-      <h2>Acm Co.</h2>
-      <div>
-        <p>Total Items: {totalItems}</p>
-        <p>Total Price: ${totalPrices.toFixed(2)}</p>
-        <button onClick={handleUpdatePage}>
+    <div className="flex w-full items-center justify-between px-10 py-3 shadow-lg">
+      <h2 className="text-green-bold text-3xl font-bold text-green-500">
+        Acm Co.
+      </h2>
+      <div className="flex items-center justify-center gap-6 text-sm">
+        <p className="hidden sm:block">Total Items: {totalItems}</p>
+        <p className="hidden sm:block">
+          Total Price: ${totalPrices.toFixed(2)}
+        </p>
+        <button className="btn" onClick={handleUpdatePage}>
           View {pageIsProducts ? "Cart" : "Products"}
         </button>
       </div>
